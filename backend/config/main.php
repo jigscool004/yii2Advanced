@@ -11,7 +11,15 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'gii' => [
+            'class' => 'yii\gii\Module', //adding gii module
+            'allowedIPs' => ['127.0.0.1', '::1']  //allowing ip's
+        ],
+    ],
+    'aliases' => [
+		'@adminlte/widgets'=>'@vendor/adminlte/yii2-widgets'
+    	],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -37,14 +45,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
